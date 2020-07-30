@@ -10,7 +10,40 @@ class App extends React.Component {
   render() {
     return (
       <div id="wrapper">HI</div>
+        <MatchFinder />
+        <Ranker />
+        <Scoreboard />
     )
+  }
+}
+
+class MatchFinder extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return
+  }
+}
+
+class Ranker extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return
+  }
+}
+
+class Scoreboard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return
   }
 }
 
