@@ -49,6 +49,23 @@ class Ranker extends React.Component {
 class Scoreboard extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			score1: 0,
+			score2: 0,
+		};
+		this.increment = this.increment.bind(this);
+		this.decrement = this.decrement.bind(this);
+	}
+	increment(team) {
+		this.setState((state) => {
+			return team == 1 ? { score1: state.score1++ } : { score2: state.score2++ };
+		});
+	}
+
+	decrement(team) {
+		this.setState((state) => {
+			return team == 1 ? { score1: state.score1-- } : { score2: state.score2-- };
+		});
 	}
 
 	render() {
@@ -59,15 +76,15 @@ class Scoreboard extends React.Component {
 				<Row>
 					<Col md="4">
 						<p id="team1-score" className="score">
-							25
+							{this.state.score1}
 						</p>
 						<p id="team1-name" className="teamName">
 							Team 1
 						</p>
-						<button type="button" class="btn btn-success">
+						<button type="button" className="btn btn-success" onClick={() => this.increment(1)}>
 							+
 						</button>
-						<button type="button" class="btn btn-danger">
+						<button type="button" className="btn btn-danger" onClick={() => this.decrement(1)}>
 							-
 						</button>
 					</Col>
@@ -76,15 +93,15 @@ class Scoreboard extends React.Component {
 					</Col>
 					<Col md="4">
 						<p id="team2-score" className="score">
-							24
+							{this.state.score2}
 						</p>
 						<p id="team2-name" className="teamName">
 							Team 2
 						</p>
-						<button type="button" class="btn btn-success">
+						<button type="button" className="btn btn-success" onClick={this.increment}>
 							+
 						</button>
-						<button type="button" class="btn btn-danger">
+						<button type="button" className="btn btn-danger" onClick={this.decrement}>
 							-
 						</button>
 					</Col>
