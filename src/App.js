@@ -42,7 +42,7 @@ class App extends React.Component {
 
 class MatchFinder extends React.Component {
 	render() {
-		return <div></div>;
+		return <div className="widget score-widget"></div>;
 	}
 }
 
@@ -75,17 +75,19 @@ class SportSelector extends React.Component {
 		return this.state.activated ? (
 			<Scoreboard sportName={this.state.selected} />
 		) : (
-			<div>
+			<div className="widget score-widget">
 				{this.state.options.map((item) => (
-					<button
-						type="button"
-						className="btn btn-success"
-						key={item.key}
-						onClick={(e) => this.activate(e.target.value)}
-						value={item.sport}
-					>
-						{item.sport}
-					</button>
+					<Col md="12">
+						<button
+							type="button"
+							className="btn btn-success"
+							key={item.key}
+							onClick={(e) => this.activate(e.target.value)}
+							value={item.sport}
+						>
+							{item.sport}
+						</button>
+					</Col>
 				))}
 			</div>
 		);
@@ -116,7 +118,7 @@ class Scoreboard extends React.Component {
 
 	render() {
 		return (
-			<div id="scorecard">
+			<div id="scorecard" className="widget score-widget">
 				<h1>Score</h1>
 				<p id="sport-name">{this.props.sportName}</p>
 				<Row>
