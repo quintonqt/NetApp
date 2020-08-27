@@ -3,22 +3,36 @@ import './App.css';
 import { Container, Row, Col } from 'reactstrap';
 import { createStore } from 'redux';
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
-	}
+const sports = [
+	{
+		sport: 'Volleyball',
+		key: 0,
+	},
+	{
+		sport: 'Tennis',
+		key: 1,
+	},
+	{
+		sport: 'Badminton',
+		key: 2,
+	},
+	{
+		sport: 'Table Tennis',
+		key: 3,
+	},
+];
 
+class App extends React.Component {
 	render() {
 		return (
 			<Container>
 				<MatchFinder />
-
 				<Row>
 					<Col md="6">
 						<Ranker />
 					</Col>
 					<Col md="6">
-						<Scoreboard />
+						<SportSelector />
 					</Col>
 				</Row>
 			</Container>
@@ -27,22 +41,54 @@ class App extends React.Component {
 }
 
 class MatchFinder extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return <div></div>;
 	}
 }
 
 class Ranker extends React.Component {
+	render() {
+		return <div></div>;
+	}
+}
+
+class SportSelector extends React.Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			options: sports,
+			activated: false,
+			selected: null,
+		};
+		this.activate = this.activate.bind(this);
+	}
+
+	activate(e) {
+		this.setState({
+			activated: true,
+			selected: e,
+		});
+		console.log(this.state.selected);
 	}
 
 	render() {
-		return <div></div>;
+		return this.state.activated ? (
+			<Scoreboard sportName={this.state.selected} />
+		) : (
+			<div>
+				{this.state.options.map((item) => (
+					<button
+						type="button"
+						className="btn btn-success"
+						key={item.key}
+						onClick={(e) => this.activate(e.target.value)}
+						value={item.sport}
+					>
+						{item.sport}
+					</button>
+				))}
+			</div>
+		);
 	}
 }
 
@@ -58,13 +104,13 @@ class Scoreboard extends React.Component {
 	}
 	increment(team) {
 		this.setState((state) => {
-			return team == 1 ? { score1: state.score1++ } : { score2: state.score2++ };
+			return team === 1 ? { score1: state.score1++ } : { score2: state.score2++ };
 		});
 	}
 
 	decrement(team) {
 		this.setState((state) => {
-			return team == 1 ? { score1: state.score1-- } : { score2: state.score2-- };
+			return team === 1 ? { score1: state.score1-- } : { score2: state.score2-- };
 		});
 	}
 
@@ -72,7 +118,7 @@ class Scoreboard extends React.Component {
 		return (
 			<div id="scorecard">
 				<h1>Score</h1>
-				<p id="sport-name">Volleyball</p>
+				<p id="sport-name">{this.props.sportName}</p>
 				<Row>
 					<Col md="4">
 						<p id="team1-score" className="score">
